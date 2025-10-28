@@ -39,6 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
+          lastName: user.lastName,
           role: user.role,
         };
       },
@@ -54,13 +55,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // En el primer login, user existe y copiamos sus datos al token
       if (user) {
         token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.lastName = user.lastName;
         token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
-      // Usar sub (id de NextAuth) si no hay id custom
+      // Copiar todos los datos del token a la sesión
       session.user.id = (token.id as string) || (token.sub as string);
+      session.user.email = (token.email as string) || "";
+      session.user.name = (token.name as string) || "";
+      session.user.lastName = (token.lastName as string) || "";
       session.user.role = token.role as Role;
       return session;
     },

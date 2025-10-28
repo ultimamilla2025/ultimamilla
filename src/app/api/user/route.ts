@@ -28,7 +28,7 @@ export async function GET() {
 
 export async function POST(crudo: Request) {
   try {
-    const { email, name, role, password } = await crudo.json();
+    const { email, name, lastName, role, password } = await crudo.json();
 
     // Validar que la contraseña exista
     if (!password) {
@@ -44,6 +44,7 @@ export async function POST(crudo: Request) {
     const nuevoUsuario = await prisma.user.create({
       data: {
         email,
+        lastName,
         name,
         role,
         password: hashedPassword,

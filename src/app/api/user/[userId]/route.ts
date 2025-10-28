@@ -35,10 +35,10 @@ export async function PUT(
 ) {
   try {
     const { userId: paramId } = await params;
-    const { name, role, email } = await request.json();
+    const { name, lastName, role, email } = await request.json();
     const usuarioActualizado = await prisma.user.update({
       where: { id: paramId },
-      data: { name, role, email },
+      data: { name, lastName, role, email },
     });
     return NextResponse.json({
       message: "Usuario actualizado exitosamente",

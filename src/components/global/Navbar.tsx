@@ -28,7 +28,7 @@ const navigation: NavItem[] = [
     name: "Dashboard",
     href: "/dashboard/userDashboard",
     icon: Home,
-    roles: ["USER", "DELIVERY", "ADMIN"],
+    roles: ["USER", "DELIVERY"],
   },
   {
     name: "Backoffice",

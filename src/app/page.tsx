@@ -1,7 +1,7 @@
 //src\app\page.tsx
+import ErrorDisplay from "@/components/global/ErrorDisplay";
 import UserTable from "./backoffice/components/UserTable";
 import { User } from "@/generated/prisma";
-import { ErrorDisplay } from "./components/global";
 
 export default async function Home() {
   const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {

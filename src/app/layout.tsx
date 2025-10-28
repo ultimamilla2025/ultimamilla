@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SessionWrapper from "./components/global/SessionWrapper";
-import Navbar from "./components/global/Navbar";
+import SessionWrapper from "../context/SessionWrapper";
+import Navbar from "../components/global/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",

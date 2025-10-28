@@ -22,6 +22,7 @@ export function useCurrentUser() {
     // Información específica
     email: session?.user?.email || null,
     name: session?.user?.name || null,
+    lastName: session?.user?.lastName || null,
     role: session?.user?.role || null,
     id: session?.user?.id || null,
 

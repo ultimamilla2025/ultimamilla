@@ -9,7 +9,7 @@ import ActionMenu, {
   ActionMenuItem,
   ActionMenuDivider,
   ActionMenuHeader,
-} from "./ActionMenu";
+} from "../src/components/dynamic-items/ActionMenu";
 import {
   Eye,
   Edit,

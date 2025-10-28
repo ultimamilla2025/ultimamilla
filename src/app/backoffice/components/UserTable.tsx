@@ -1,16 +1,14 @@
 "use client";
 
 import { User } from "@/generated/prisma";
-import DynamicTable, {
-  Column,
-} from "../../components/dynamic-items/DynamicTable";
-import ActionMenu, {
-  ActionMenuItem,
-  ActionMenuDivider,
-} from "../../components/dynamic-items/ActionMenu";
 import { Eye, Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ActionMenu, {
+  ActionMenuItem,
+  ActionMenuDivider,
+} from "@/components/dynamic-items/ActionMenu";
+import DynamicTable, { Column } from "@/components/dynamic-items/DynamicTable";
 
 interface UserTableProps {
   users: User[];
@@ -62,6 +60,14 @@ export default function UserTable({ users }: UserTableProps) {
       header: "Nombre",
       render: (user) => (
         <span className="font-medium">{user.name || "Sin nombre"}</span>
+      ),
+      mobileClassName: "order-1", // Se muestra primero en mobile
+    },
+    {
+      key: "lastName",
+      header: "Apellido",
+      render: (user) => (
+        <span className="font-medium">{user.lastName || "Sin nombre"}</span>
       ),
       mobileClassName: "order-1", // Se muestra primero en mobile
     },

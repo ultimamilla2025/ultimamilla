@@ -5,18 +5,21 @@ import bcrypt from "bcryptjs";
 const userData = [
   {
     name: "Alice",
+    lastName: "Smith",
     email: "alice@prisma.io",
     password: "123456", // Se hasheará antes de guardar
     role: Role.ADMIN,
   },
   {
     name: "Bob",
+    lastName: "Johnson",
     email: "bob@prisma.io",
     password: "123456",
     role: Role.USER,
   },
   {
     name: "Charlie",
+    lastName: "Brown",
     email: "charlie@prisma.io",
     password: "123456",
     role: Role.DELIVERY,
