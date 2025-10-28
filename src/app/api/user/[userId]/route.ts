@@ -21,7 +21,7 @@ export async function GET(
 
     console.log(request);
     return NextResponse.json(user);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error al obtener el usuario" },
       { status: 500 }
@@ -44,7 +44,7 @@ export async function PUT(
       message: "Usuario actualizado exitosamente",
       usuario: usuarioActualizado,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error al actualizar usuario" },
       { status: 500 }
@@ -62,7 +62,7 @@ export async function DELETE(
       where: { id: userId },
     });
     return NextResponse.json({ message: "Usuario eliminado exitosamente" });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error al eliminar usuario" },
       { status: 500 }

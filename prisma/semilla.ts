@@ -1,20 +1,24 @@
 import prisma from "@/lib/prisma";
 import { Role } from "@/generated/prisma";
+import bcrypt from "bcryptjs";
 
 const userData = [
   {
     name: "Alice",
     email: "alice@prisma.io",
+    password: "123456", // Se hasheará antes de guardar
     role: Role.ADMIN,
   },
   {
     name: "Bob",
     email: "bob@prisma.io",
+    password: "123456",
     role: Role.USER,
   },
   {
     name: "Charlie",
     email: "charlie@prisma.io",
+    password: "123456",
     role: Role.DELIVERY,
   },
 ];
@@ -24,10 +28,18 @@ export async function semilla() {
   await prisma.user.deleteMany({});
   console.log("🗑️ Usuarios anteriores eliminados");
 
-  // Crear los nuevos usuarios
-  await prisma.user.createMany({
-    data: userData,
-  });
+  // Hashear contraseñas y crear usuarios
+  for (const user of userData) {
+    const hashedPassword = bcrypt.hashSync(user.password, 10);
+    await prisma.user.create({
+      data: {
+        ...user,
+        password: hashedPassword,
+      },
+    });
+    console.log(`✅ Usuario creado: ${user.email}`);
+  }
+
   console.log("✅ Seed completado exitosamente");
 }
 
