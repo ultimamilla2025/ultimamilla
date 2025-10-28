@@ -1,8 +1,9 @@
-﻿import Link from "next/link";
+﻿import Logo from "@/components/global/logo";
+import Link from "next/link";
 
 export default async function Home() {
   return (
-    <div className="min-h-screen w-full bg-[var(--background)] text-[var(--text)] overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full bg-[var(--background)] text-[var(--text)] overflow-hidden transition-colors duration-300 font-[family-name:var(--font-nunito-sans)]">
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-8">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--borders)_1px,transparent_1px),linear-gradient(to_bottom,var(--borders)_1px,transparent_1px)] bg-[size:64px_64px] opacity-50" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--primary)] opacity-20 rounded-full blur-3xl animate-pulse" />
@@ -12,6 +13,10 @@ export default async function Home() {
             <span className="px-4 py-1.5 text-xs font-medium bg-[var(--primary)]/10 text-[var(--primary)] rounded-full border border-[var(--primary)]/20">
               Logística del futuro
             </span>
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Logo className="p-5 w-40 -mb-4 rounded-full" variant="logo" />
           </div>
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight">
             <span className="block bg-gradient-to-r from-[var(--text)] via-[var(--textmuted)] to-[var(--textmuted)] bg-clip-text text-transparent">

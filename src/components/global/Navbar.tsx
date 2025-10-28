@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useCurrentUser } from "@/utils/frontend/getCurrentUser";
 import ThemeToggle from "./ThemeToggle";
+import Logo from "./logo";
 
 interface NavItem {
   name: string;
@@ -101,7 +102,7 @@ export default function Navbar() {
                 href="/"
                 className="text-2xl font-bold bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] bg-clip-text text-transparent hover:opacity-80 transition-all duration-300"
               >
-                Última Milla
+                <Logo variant="logo-text" />
               </Link>
             </div>
 

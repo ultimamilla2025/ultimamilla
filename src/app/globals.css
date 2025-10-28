@@ -139,6 +139,8 @@
   --warning: #F59E0B;
   --error: #EF4444;
   --info: #0EA5E9;
+
+  --bg-logo: #FFFFFF;
 }
 
 .dark {
@@ -158,6 +160,9 @@
   --primary: #EA5832;
   --secondary: #0E2638;
   --accent: #d4a406;
+
+  --bg-logo: #cbcdd0;
+
   
   /* Status stay the same */
   --success: #10B981;
