@@ -301,11 +301,11 @@ export function LoginForm({
                     id="rememberEmail"
                     checked={rememberEmail}
                     onChange={(e) => setRememberEmail(e.target.checked)}
-                    className="h-4 w-4 rounded border-gray-300"
+                    className="h-4 w-4 rounded border-[var(--borders)]"
                   />
                   <label
                     htmlFor="rememberEmail"
-                    className="text-sm text-gray-600 cursor-pointer"
+                    className="text-sm text-[var(--textmuted)] cursor-pointer"
                   >
                     Recordar mi email
                   </label>

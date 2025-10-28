@@ -130,9 +130,9 @@
   --borders: #E5E7EB;
   
   /* Brand Colors */
-  --primary: #3B82F6;
-  --secondary: #8B5CF6;
-  --accent: #06B6D4;
+  --primary: #EA5832;
+  --secondary: #0E2638;
+  --accent: #d4a406;
   
   /* Status */
   --success: #10B981;
@@ -155,9 +155,9 @@
   --borders: rgba(255, 255, 255, 0.1);
   
   /* Brand Colors stay the same */
-  --primary: #3B82F6;
-  --secondary: #8B5CF6;
-  --accent: #06B6D4;
+  --primary: #EA5832;
+  --secondary: #0E2638;
+  --accent: #d4a406;
   
   /* Status stay the same */
   --success: #10B981;

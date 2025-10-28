@@ -67,7 +67,7 @@ export default function ActionMenu({
       {isOpen && (
         <div
           ref={menuRef}
-          className="fixed w-48 bg-gray-800 border border-white/10 rounded-xl shadow-2xl py-2 z-50"
+          className="fixed w-48 bg-[var(--elevated)] border border-[var(--borders)] rounded-xl shadow-2xl py-2 z-50"
           style={{
             top: `${position.top}px`,
             left: `${position.left}px`,
@@ -85,7 +85,7 @@ export default function ActionMenu({
         <button
           ref={buttonRef}
           onClick={handleToggle}
-          className="p-2 rounded-lg hover:bg-white/10 transition-all text-gray-400 hover:text-gray-200 relative z-50"
+          className="p-2 rounded-lg hover:bg-[var(--surface)] transition-all text-[var(--textmuted)] hover:text-[var(--text)] relative z-50"
         >
           <MoreVertical size={20} />
         </button>
@@ -111,10 +111,10 @@ export function ActionMenuItem({
   disabled = false,
 }: ActionMenuItemProps) {
   const variants: Record<string, string> = {
-    default: "text-gray-300 hover:bg-white/10",
-    primary: "text-blue-300 hover:bg-blue-500/20",
-    warning: "text-yellow-300 hover:bg-yellow-500/20",
-    danger: "text-red-300 hover:bg-red-500/20",
+    default: "text-[var(--text)] hover:bg-[var(--surface)]",
+    primary: "text-[var(--primary)] hover:bg-[var(--primary)]/10",
+    warning: "text-[var(--warning)] hover:bg-[var(--warning)]/10",
+    danger: "text-[var(--error)] hover:bg-[var(--error)]/10",
   };
   return (
     <button
@@ -131,12 +131,12 @@ export function ActionMenuItem({
 }
 
 export function ActionMenuDivider() {
-  return <div className="my-1 border-t border-white/10" />;
+  return <div className="my-1 border-t border-[var(--borders)]" />;
 }
 
 export function ActionMenuHeader({ label }: { label: string }) {
   return (
-    <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+    <div className="px-4 py-2 text-xs font-semibold text-[var(--textmuted)] uppercase">
       {label}
     </div>
   );

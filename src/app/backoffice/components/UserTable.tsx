@@ -48,7 +48,7 @@ export default function UserTable({ users }: UserTableProps) {
       key: "id",
       header: "ID",
       render: (user) => (
-        <span className="font-mono text-xs text-gray-400">
+        <span className="font-mono text-xs text-[var(--textmuted)]">
           {user.id.slice(0, 8)}...
         </span>
       ),

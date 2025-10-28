@@ -14,23 +14,23 @@ export default async function DashboardPage() {
   console.log(session.user.role);
 
   return (
-    <div className="min-h-screen w-screen bg-neutral-200 flex justify-center items-center">
-      <div className="border flex flex-col w-96 items-center justify-center px-6 py-8 rounded-2xl bg-neutral-300">
-        <h2 className="text-2xl font-bold mb-6 text-gray-700">
+    <div className="min-h-screen w-screen bg-[var(--background)] flex justify-center items-center">
+      <div className="border border-[var(--borders)] flex flex-col w-96 items-center justify-center px-6 py-8 rounded-2xl bg-[var(--surface)]">
+        <h2 className="text-2xl font-bold mb-6 text-[var(--text)]">
           Dashboard de deliveries{" "}
         </h2>
 
-        <div className="bg-white p-4 rounded-lg w-full mb-4">
-          <p className="text-gray-700">
+        <div className="bg-[var(--elevated)] p-4 rounded-lg w-full mb-4">
+          <p className="text-[var(--text)]">
             <strong>ID:</strong> {session.user.id}
           </p>
-          <p className="text-gray-700">
+          <p className="text-[var(--text)]">
             <strong>Email:</strong> {session.user.email}
           </p>
-          <p className="text-gray-700">
+          <p className="text-[var(--text)]">
             <strong>Nombre:</strong> {session.user.name || "Sin nombre"}
           </p>
-          <p className="text-gray-700">
+          <p className="text-[var(--text)]">
             <strong>Role:</strong> {session.user.role}
           </p>
         </div>

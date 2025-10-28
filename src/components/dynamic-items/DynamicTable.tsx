@@ -193,7 +193,7 @@ export default function DynamicTable<T>({
 
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center p-12 text-gray-500 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+      <div className="flex items-center justify-center p-12 text-[var(--textmuted)] bg-[var(--surface)] backdrop-blur-sm rounded-2xl border border-[var(--borders)]">
         {emptyMessage}
       </div>
     );
@@ -202,15 +202,15 @@ export default function DynamicTable<T>({
   return (
     <div className={`w-full ${className}`}>
       {/* VISTA DESKTOP/TABLET - Tabla */}
-      <div className="hidden md:block rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+      <div className="hidden md:block rounded-2xl border border-[var(--borders)] bg-[var(--surface)] backdrop-blur-sm">
         <div className="relative">
           <table className="w-full table-auto">
             <thead>
-              <tr className="border-b border-white/10 bg-white/5">
+              <tr className="border-b border-[var(--borders)] bg-[var(--elevated)]">
                 {columns.map((column) => (
                   <th
                     key={column.key}
-                    className={`px-6 py-4 text-left text-sm font-semibold text-gray-200 ${
+                    className={`px-6 py-4 text-left text-sm font-semibold text-[var(--text)] ${
                       column.desktopClassName || column.headerClassName || ""
                     }`}
                   >
@@ -224,16 +224,18 @@ export default function DynamicTable<T>({
                 <tr
                   key={keyExtractor(item)}
                   className={`
-                    border-b border-white/5 
+                    border-b border-[var(--borders)] 
                     transition-all duration-200
-                    hover:bg-white/10
-                    ${index % 2 === 0 ? "bg-white/0" : "bg-white/[0.02]"}
+                    hover:bg-[var(--elevated)]
+                    ${
+                      index % 2 === 0 ? "bg-transparent" : "bg-[var(--surface)]"
+                    }
                   `}
                 >
                   {columns.map((column) => (
                     <td
                       key={column.key}
-                      className={`px-6 py-4 text-sm text-gray-300 ${
+                      className={`px-6 py-4 text-sm text-[var(--text)] ${
                         column.desktopClassName || column.className || ""
                       }`}
                     >
@@ -263,10 +265,10 @@ export default function DynamicTable<T>({
               key={keyExtractor(item)}
               className="
                 relative
-                rounded-2xl border border-white/10 
-                bg-white/5 backdrop-blur-sm 
+                rounded-2xl border border-[var(--borders)]
+                bg-[var(--surface)] backdrop-blur-sm 
                 p-5 space-y-3
-                hover:bg-white/10 transition-all duration-200
+                hover:bg-[var(--elevated)] transition-all duration-200
                 shadow-lg hover:shadow-xl
               "
             >
@@ -285,10 +287,10 @@ export default function DynamicTable<T>({
                     column.mobileClassName || ""
                   }`}
                 >
-                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                  <span className="text-xs font-semibold text-[var(--textmuted)] uppercase tracking-wide">
                     {column.header}
                   </span>
-                  <div className="text-sm text-gray-200">
+                  <div className="text-sm text-[var(--text)]">
                     {column.render
                       ? column.render(item)
                       : String(
