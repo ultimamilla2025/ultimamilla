@@ -45,6 +45,8 @@
 
 :root {
   --radius: 0.625rem;
+  
+  /* Shadcn variables */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -79,6 +81,7 @@
 }
 
 .dark {
+  /* Shadcn variables */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -110,6 +113,57 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Custom Theme Variables - Simple names that work for both light and dark */
+:root {
+  /* Backgrounds */
+  --background: #FFFFFF;
+  --surface: #F9FAFB;
+  --elevated: #FFFFFF;
+  
+  /* Text */
+  --text: #111827;
+  --textmuted: #6B7280;
+  
+  /* Borders */
+  --borders: #E5E7EB;
+  
+  /* Brand Colors */
+  --primary: #3B82F6;
+  --secondary: #8B5CF6;
+  --accent: #06B6D4;
+  
+  /* Status */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #0EA5E9;
+}
+
+.dark {
+  /* Backgrounds */
+  --background: #000000;
+  --surface: #171717;
+  --elevated: #262626;
+  
+  /* Text */
+  --text: #FFFFFF;
+  --textmuted: #A3A3A3;
+  
+  /* Borders */
+  --borders: rgba(255, 255, 255, 0.1);
+  
+  /* Brand Colors stay the same */
+  --primary: #3B82F6;
+  --secondary: #8B5CF6;
+  --accent: #06B6D4;
+  
+  /* Status stay the same */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #0EA5E9;
 }
 
 @layer base {

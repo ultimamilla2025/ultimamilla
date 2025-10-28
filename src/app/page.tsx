@@ -1,45 +1,48 @@
-//src\app\page.tsx
-import ErrorDisplay from "@/components/global/ErrorDisplay";
-import UserTable from "./backoffice/components/UserTable";
-import { User } from "@/generated/prisma";
+﻿import Link from "next/link";
 
 export default async function Home() {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
-    cache: "no-store", // Evitar cache
-  });
-
-  const data = await response.json();
-
-  // Si no es un array, es un error
-  if (!Array.isArray(data)) {
-    return (
-      <ErrorDisplay
-        type="access-denied"
-        title="Acceso Denegado"
-        message={data.error}
-      />
-    );
-  }
-
-  const users: User[] = data;
-
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white">
-            Gestión de Usuarios
+    <div className="min-h-screen w-full bg-[var(--background)] text-[var(--text)] overflow-hidden transition-colors duration-300">
+      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-8">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--borders)_1px,transparent_1px),linear-gradient(to_bottom,var(--borders)_1px,transparent_1px)] bg-[size:64px_64px] opacity-50" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--primary)] opacity-20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[var(--secondary)] opacity-20 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="relative z-10 max-w-6xl mx-auto text-center space-y-8">
+          <div className="inline-block mb-4">
+            <span className="px-4 py-1.5 text-xs font-medium bg-[var(--primary)]/10 text-[var(--primary)] rounded-full border border-[var(--primary)]/20">
+              Logística del futuro
+            </span>
+          </div>
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight">
+            <span className="block bg-gradient-to-r from-[var(--text)] via-[var(--textmuted)] to-[var(--textmuted)] bg-clip-text text-transparent">
+              Última Milla
+            </span>
           </h1>
-          <p className="text-gray-400">
-            {users.length} usuario{users.length !== 1 ? "s" : ""} registrado
-            {users.length !== 1 ? "s" : ""}
+          <p className="text-xl sm:text-2xl text-[var(--textmuted)] max-w-3xl mx-auto leading-relaxed">
+            Revolucionamos la entrega final. Tecnología avanzada para conectar
+            tu negocio con tus clientes en tiempo récord.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+            <Link
+              href={"/login"}
+              className="px-8 py-4 bg-[var(--primary)] text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Comenzar ahora
+            </Link>
+            <button className="px-8 py-4 bg-transparent text-[var(--text)] font-semibold rounded-lg border border-[var(--borders)] hover:bg-[var(--surface)] transition-all duration-300">
+              Conocer más
+            </button>
+          </div>
         </div>
-
-        {/* Tabla */}
-        <UserTable users={users} />
-      </div>
+      </section>
+      <footer className="border-t border-[var(--borders)] py-12 px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto text-center text-[var(--textmuted)]">
+          <p className="text-2xl font-bold text-[var(--text)] mb-2">
+            Última Milla
+          </p>
+          <p className="text-sm">© 2025 Todos los derechos reservados</p>
+        </div>
+      </footer>
     </div>
   );
 }

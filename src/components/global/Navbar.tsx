@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { useCurrentUser } from "@/utils/frontend/getCurrentUser";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavItem {
   name: string;
@@ -91,36 +92,41 @@ export default function Navbar() {
   return (
     <>
       {/* Top Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl border-b border-slate-700">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--elevated)] shadow-2xl border-b border-[var(--borders)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <Link
                 href="/"
-                className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent hover:from-blue-300 hover:to-cyan-300 transition-all duration-300"
+                className="text-2xl font-bold bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] bg-clip-text text-transparent hover:opacity-80 transition-all duration-300"
               >
                 Última Milla
               </Link>
             </div>
 
-            {/* User Info & Hamburger */}
+            {/* User Info, Theme Toggle & Hamburger */}
             <div className="flex items-center gap-4">
+              {/* Theme Toggle */}
+              <ThemeToggle />
+
               {/* User Avatar with Initials */}
-              <div className="hidden sm:flex items-center gap-3 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700 hover:border-blue-500 transition-all duration-300">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              <div className="hidden sm:flex items-center gap-3 bg-[var(--surface)] px-4 py-2 rounded-full border border-[var(--borders)] hover:border-[var(--primary)] transition-all duration-300">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] flex items-center justify-center text-white font-bold text-sm shadow-lg">
                   {getInitials(userName || "U")}
                 </div>
                 <div className="hidden md:block">
-                  <p className="text-sm font-semibold text-white">{userName}</p>
-                  <p className="text-xs text-slate-400">{userRole}</p>
+                  <p className="text-sm font-semibold text-[var(--text)]">
+                    {userName}
+                  </p>
+                  <p className="text-xs text-[var(--textmuted)]">{userRole}</p>
                 </div>
               </div>
 
               {/* Hamburger Button */}
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all duration-300 border border-slate-700 hover:border-blue-500"
+                className="p-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--elevated)] text-[var(--textmuted)] hover:text-[var(--text)] transition-all duration-300 border border-[var(--borders)] hover:border-[var(--primary)]"
                 aria-label="Toggle menu"
               >
                 {sidebarOpen ? (
@@ -144,25 +150,27 @@ export default function Navbar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-80 bg-[var(--elevated)] shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
-        } border-l border-slate-700`}
+        } border-l border-[var(--borders)]`}
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between p-6 border-b border-slate-700">
+          <div className="flex items-center justify-between p-6 border-b border-[var(--borders)]">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold shadow-lg">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] flex items-center justify-center text-white font-bold shadow-lg">
                 {getInitials(userName || "U")}
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">{userName}</p>
-                <p className="text-xs text-slate-400">{userRole}</p>
+                <p className="text-sm font-semibold text-[var(--text)]">
+                  {userName}
+                </p>
+                <p className="text-xs text-[var(--textmuted)]">{userRole}</p>
               </div>
             </div>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all duration-300"
+              className="p-2 rounded-lg hover:bg-[var(--surface)] text-[var(--textmuted)] hover:text-[var(--text)] transition-all duration-300"
             >
               <X className="h-6 w-6" />
             </button>
@@ -180,8 +188,8 @@ export default function Navbar() {
                   onClick={() => setSidebarOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 group ${
                     isActive
-                      ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/50"
-                      : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                      ? "bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-lg shadow-[var(--primary)]/50"
+                      : "text-[var(--textmuted)] hover:bg-[var(--surface)] hover:text-[var(--text)]"
                   }`}
                 >
                   <Icon
@@ -196,10 +204,10 @@ export default function Navbar() {
           </nav>
 
           {/* Logout Button */}
-          <div className="p-4 border-t border-slate-700">
+          <div className="p-4 border-t border-[var(--borders)]">
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-950/30 transition-all duration-300 group border border-transparent hover:border-red-500/50"
+              className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-[var(--error)] hover:text-red-300 hover:bg-red-950/30 transition-all duration-300 group border border-transparent hover:border-[var(--error)]/50"
             >
               <LogOut className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
               <span className="font-medium">Cerrar Sesión</span>
