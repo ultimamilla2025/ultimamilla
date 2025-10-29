@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/global/loader";
 import { Role } from "@/generated/prisma";
 import { useCurrentUser } from "@/utils/frontend/getCurrentUser";
 import { unauthorized } from "next/navigation";
@@ -16,7 +17,8 @@ export default function RootLayout({
   // Mientras está cargando, no hacemos nada (o mostramos un loader)
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center gap-5 justify-center min-h-screen">
+        <Loader size="xs" />
         <p>Cargando...</p>
       </div>
     );

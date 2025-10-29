@@ -1,6 +1,8 @@
 //src\app\users\[userId]\page.tsx
 
 import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
+import UserProfileClient from "./UserProfileClient";
 
 type Parametros = {
   params: {
@@ -17,9 +19,9 @@ export default async function ProfilePage({ params }: Parametros) {
     },
   });
 
-  return (
-    <div className="min-h-screen flex justify-center items-center text-7xl">
-      {user?.email}
-    </div>
-  );
+  if (!user) {
+    notFound();
+  }
+
+  return <UserProfileClient user={user} />;
 }

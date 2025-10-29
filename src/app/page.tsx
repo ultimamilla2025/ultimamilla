@@ -20,7 +20,7 @@ export default async function Home() {
           </div>
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight">
             <span className="block bg-gradient-to-r from-[var(--text)] via-[var(--textmuted)] to-[var(--textmuted)] bg-clip-text text-transparent">
-              Última Milla
+              Última<span className="text-[var(--primary)]">M</span>illa
             </span>
           </h1>
           <p className="text-xl sm:text-2xl text-[var(--textmuted)] max-w-3xl mx-auto leading-relaxed">

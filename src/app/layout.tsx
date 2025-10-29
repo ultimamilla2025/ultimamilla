@@ -3,6 +3,7 @@ import "./globals.css";
 import SessionWrapper from "../context/SessionWrapper";
 import { ThemeProvider } from "../context/ThemeContext";
 import Navbar from "../components/global/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 import localFont from "next/font/local";
 
 export const metadata: Metadata = {
@@ -39,6 +40,7 @@ export default function RootLayout({
           <SessionWrapper>
             <Navbar />
             {children}
+            <Toaster />
           </SessionWrapper>
         </ThemeProvider>
       </body>

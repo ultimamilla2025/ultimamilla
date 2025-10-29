@@ -1,14 +1,17 @@
 "use client";
 
-import { User } from "@/generated/prisma";
-import { Eye, Edit, Trash2 } from "lucide-react";
+import { User, Role } from "@/generated/prisma";
+import { Eye, Edit, Trash2, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import ActionMenu, {
   ActionMenuItem,
   ActionMenuDivider,
 } from "@/components/dynamic-items/ActionMenu";
 import DynamicTable, { Column } from "@/components/dynamic-items/DynamicTable";
+import UserModal from "./UserModal";
+import { Button } from "@/components/ui/button";
 
 interface UserTableProps {
   users: User[];
@@ -16,30 +19,73 @@ interface UserTableProps {
 
 export default function UserTable({ users }: UserTableProps) {
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const router = useRouter();
 
+  const handleOpenCreateModal = () => {
+    setSelectedUser(null);
+    setModalMode("create");
+    setModalOpen(true);
+  };
+
+  const handleOpenEditModal = (user: User) => {
+    // No permitir editar administradores
+    if (user.role === Role.ADMIN) {
+      toast.error("No se pueden editar usuarios administradores", {
+        description: "Los usuarios con rol ADMIN están protegidos",
+      });
+      return;
+    }
+    setSelectedUser(user);
+    setModalMode("edit");
+    setModalOpen(true);
+  };
+
   const handleDelete = async (userId: string) => {
-    if (!confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
+    const userToDelete = users.find((u) => u.id === userId);
+
+    // No permitir eliminar administradores
+    if (userToDelete?.role === Role.ADMIN) {
+      toast.error("No se pueden eliminar usuarios administradores", {
+        description: "Los usuarios con rol ADMIN están protegidos",
+      });
       return;
     }
 
-    setDeleting(userId);
+    // Crear un toast de confirmación
+    toast.warning("¿Estás seguro?", {
+      description: `Vas a eliminar a ${userToDelete?.name} ${userToDelete?.lastName}`,
+      action: {
+        label: "Eliminar",
+        onClick: async () => {
+          setDeleting(userId);
+          toast.loading("Eliminando usuario...", { id: userId });
 
-    try {
-      const response = await fetch(`/api/user/${userId}`, {
-        method: "DELETE",
-      });
+          try {
+            const response = await fetch(`/api/user/${userId}`, {
+              method: "DELETE",
+            });
 
-      if (response.ok) {
-        window.location.reload();
-      } else {
-        alert("Error al eliminar usuario");
-      }
-    } catch {
-      alert("Error al eliminar usuario");
-    } finally {
-      setDeleting(null);
-    }
+            if (response.ok) {
+              toast.success("Usuario eliminado exitosamente", { id: userId });
+              router.refresh();
+            } else {
+              toast.error("Error al eliminar usuario", { id: userId });
+            }
+          } catch {
+            toast.error("Error al eliminar usuario", { id: userId });
+          } finally {
+            setDeleting(null);
+          }
+        },
+      },
+      cancel: {
+        label: "Cancelar",
+        onClick: () => toast.dismiss(),
+      },
+    });
   };
 
   // Definir las columnas de la tabla
@@ -115,8 +161,9 @@ export default function UserTable({ users }: UserTableProps) {
           <ActionMenuItem
             icon={<Edit size={16} />}
             label="Editar usuario"
-            onClick={() => router.push(`/formdemo/${user.id}`)}
+            onClick={() => handleOpenEditModal(user)}
             variant="warning"
+            disabled={user.role === Role.ADMIN}
           />
           <ActionMenuDivider />
           <ActionMenuItem
@@ -124,7 +171,7 @@ export default function UserTable({ users }: UserTableProps) {
             label={deleting === user.id ? "Eliminando..." : "Eliminar"}
             onClick={() => handleDelete(user.id)}
             variant="danger"
-            disabled={deleting === user.id}
+            disabled={deleting === user.id || user.role === Role.ADMIN}
           />
         </ActionMenu>
       ),
@@ -133,12 +180,29 @@ export default function UserTable({ users }: UserTableProps) {
   ];
 
   return (
-    <DynamicTable
-      data={users}
-      columns={columns}
-      keyExtractor={(user) => user.id}
-      emptyMessage="No hay usuarios registrados"
-      className="w-full"
-    />
+    <>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Gestión de Usuarios</h2>
+        <Button onClick={handleOpenCreateModal} className="gap-2">
+          <UserPlus size={18} />
+          Crear Empleado
+        </Button>
+      </div>
+
+      <DynamicTable
+        data={users}
+        columns={columns}
+        keyExtractor={(user) => user.id}
+        emptyMessage="No hay usuarios registrados"
+        className="w-full"
+      />
+
+      <UserModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        user={selectedUser}
+        mode={modalMode}
+      />
+    </>
   );
 }
