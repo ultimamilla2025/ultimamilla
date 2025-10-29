@@ -1,8 +1,10 @@
-import prisma from "@/lib/prisma";
 import UserTable from "./components/UserTable";
+import { fetchWithAuth } from "@/utils/backend/fetchWithAuth";
 
 export default async function Home() {
-  const users = await prisma.user.findMany();
+  const users = await fetchWithAuth("/user");
+
+  console.log(users);
 
   return (
     <div className="min-h-screen w-full bg-[var(--background)] p-4 sm:p-8">
