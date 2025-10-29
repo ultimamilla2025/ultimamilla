@@ -1,5 +1,5 @@
 import UserTable from "./components/UserTable";
-import { fetchWithAuth } from "@/utils/backend/fetchWithAuth";
+import { fetchWithAuth } from "@/utils/frontend/fetchWithAuth";
 
 export default async function Home() {
   const users = await fetchWithAuth("/user");
