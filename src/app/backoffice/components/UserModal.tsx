@@ -77,6 +77,9 @@ export default function UserModal({
   // Actualizar el formulario cuando cambie el usuario o el modo
   useEffect(() => {
     if (open) {
+      // Limpiar mensaje cuando se abre el modal
+      setMensaje("");
+
       if (mode === "edit" && user) {
         reset({
           name: user.name || "",
@@ -94,6 +97,9 @@ export default function UserModal({
           role: Role.USER,
         });
       }
+    } else {
+      // Limpiar mensaje cuando se cierra el modal
+      setMensaje("");
     }
   }, [open, mode, user, reset]);
 

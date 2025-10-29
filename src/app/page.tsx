@@ -9,12 +9,6 @@ export default async function Home() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--primary)] opacity-20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-[var(--secondary)] opacity-20 rounded-full blur-3xl animate-pulse delay-1000" />
         <div className="relative z-10 max-w-6xl mx-auto text-center space-y-8">
-          <div className="inline-block mb-4">
-            <span className="px-4 py-1.5 text-xs font-medium bg-[var(--primary)]/10 text-[var(--primary)] rounded-full border border-[var(--primary)]/20">
-              Logística del futuro
-            </span>
-          </div>
-
           <div className="mt-10 flex justify-center">
             <Logo className="p-5 w-40 -mb-4 rounded-full" variant="logo" />
           </div>
@@ -23,11 +17,16 @@ export default async function Home() {
               Última<span className="text-[var(--primary)]">M</span>illa
             </span>
           </h1>
+          <div className="inline-block mb-4">
+            <span className="px-4 py-1.5 text-xs font-medium bg-[var(--primary)]/10 text-[var(--primary)] rounded-full border border-[var(--primary)]/20">
+              Logística del futuro
+            </span>
+          </div>
           <p className="text-xl sm:text-2xl text-[var(--textmuted)] max-w-3xl mx-auto leading-relaxed">
             Revolucionamos la entrega final. Tecnología avanzada para conectar
             tu negocio con tus clientes en tiempo récord.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 mb-2">
             <Link
               href={"/login"}
               className="px-8 py-4 bg-[var(--primary)] text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
@@ -45,7 +44,9 @@ export default async function Home() {
           <p className="text-2xl font-bold text-[var(--text)] mb-2">
             Última Milla
           </p>
-          <p className="text-sm">© 2025 Todos los derechos reservados</p>
+          <p className="text-sm">
+            © AIMBIT - 2025 Todos los derechos reservados
+          </p>
         </div>
       </footer>
     </div>
