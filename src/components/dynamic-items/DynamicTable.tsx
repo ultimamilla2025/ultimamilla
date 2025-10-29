@@ -193,7 +193,7 @@ export default function DynamicTable<T>({
 
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center p-12 text-[var(--textmuted)] bg-[var(--surface)] backdrop-blur-sm rounded-2xl border border-[var(--borders)]">
+      <div className="flex items-center justify-center p-12 text-[var(--textmuted)] bg-[var(--surface)] backdrop-blur-sm rounded-2xl border border-[var(--borders)] ">
         {emptyMessage}
       </div>
     );
@@ -202,7 +202,7 @@ export default function DynamicTable<T>({
   return (
     <div className={`w-full ${className}`}>
       {/* VISTA DESKTOP/TABLET - Tabla */}
-      <div className="hidden md:block rounded-2xl border border-[var(--borders)] bg-[var(--surface)] backdrop-blur-sm">
+      <div className="hidden md:block rounded-2xl border border-[var(--borders)] bg-[var(--surface)] backdrop-blur-sm overflow-hidden">
         <div className="relative">
           <table className="w-full table-auto">
             <thead>

@@ -18,6 +18,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Role } from "@/generated/prisma";
+import Loader from "@/components/global/loader";
+import { CheckCircle2, XCircle, AlertCircle } from "lucide-react";
 
 // Esquema de validación con Zod - ahora siempre incluye todos los campos como opcionales
 const loginSchema = z.object({
@@ -39,6 +41,9 @@ export function LoginForm({
   ...props
 }: LoginFormProps) {
   const [mensaje, setMensaje] = useState("");
+  const [mensajeType, setMensajeType] = useState<"success" | "error" | "info">(
+    "info"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [rememberEmail, setRememberEmail] = useState(false);
   const router = useRouter();
@@ -94,12 +99,14 @@ export function LoginForm({
     // Validación manual para register
     if (isRegister) {
       if (!datos.name || datos.name.trim() === "") {
-        setMensaje("❌ El nombre es requerido");
+        setMensaje("El nombre es requerido");
+        setMensajeType("error");
         setIsLoading(false);
         return;
       }
       if (!datos.lastName || datos.lastName.trim() === "") {
-        setMensaje("❌ El apellido es requerido");
+        setMensaje("El apellido es requerido");
+        setMensajeType("error");
         setIsLoading(false);
         return;
       }
@@ -122,7 +129,8 @@ export function LoginForm({
         const resultado = await response.json();
 
         if (response.ok) {
-          setMensaje("✅ Usuario creado exitosamente. Redirigiendo...");
+          setMensaje("Usuario creado exitosamente. Redirigiendo...");
+          setMensajeType("success");
           reset();
           // Auto-login después de registro exitoso
           const result = await signIn("credentials", {
@@ -135,11 +143,13 @@ export function LoginForm({
             // Obtener la sesión fresca después del login
             const freshSession = await getSession();
             const userRole = freshSession?.user?.role || Role.USER;
-            setMensaje("✅ Usuario creado exitosamente. Redirigiendo...");
+            setMensaje("Usuario creado exitosamente. Redirigiendo...");
+            setMensajeType("success");
             redirectByRole(userRole);
           }
         } else {
-          setMensaje(`❌ ${resultado.error || "Error al registrar usuario"}`);
+          setMensaje(resultado.error || "Error al registrar usuario");
+          setMensajeType("error");
         }
       } else {
         // Login
@@ -160,18 +170,17 @@ export function LoginForm({
           // Obtener la sesión fresca después del login
           const freshSession = await getSession();
           const userRole = freshSession?.user?.role || Role.USER;
-          setMensaje("✅ Inicio de sesión exitoso. Redirigiendo...");
+          setMensaje("Inicio de sesión exitoso. Redirigiendo...");
+          setMensajeType("success");
           redirectByRole(userRole);
         } else {
-          setMensaje("❌ Credenciales inválidas");
+          setMensaje("Credenciales inválidas");
+          setMensajeType("error");
         }
       }
     } catch (error) {
-      setMensaje(
-        `❌ Error: ${
-          error instanceof Error ? error.message : "Error desconocido"
-        }`
-      );
+      setMensaje(error instanceof Error ? error.message : "Error desconocido");
+      setMensajeType("error");
     } finally {
       setIsLoading(false);
     }
@@ -326,8 +335,41 @@ export function LoginForm({
                 </Button>
               </Field>
 
-              {mensaje && (
-                <p className="text-sm font-semibold text-center">{mensaje}</p>
+              {(isLoading ||
+                (mensaje &&
+                  mensajeType === "success" &&
+                  mensaje.includes("Redirigiendo"))) && (
+                <div className="flex items-center justify-center gap-3 py-2">
+                  <Loader size="xs" className="m-0" />
+                  <span className="text-sm text-muted-foreground">
+                    {mensaje && mensaje.includes("Redirigiendo")
+                      ? mensaje
+                      : "Procesando..."}
+                  </span>
+                </div>
+              )}
+
+              {mensaje && !mensaje.includes("Redirigiendo") && !isLoading && (
+                <div
+                  className={cn(
+                    "flex items-center justify-center gap-2 rounded-md p-3 text-sm font-medium",
+                    mensajeType === "success" &&
+                      "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400",
+                    mensajeType === "error" &&
+                      "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400",
+                    mensajeType === "info" &&
+                      "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
+                  )}
+                >
+                  {mensajeType === "success" && (
+                    <CheckCircle2 className="h-5 w-5" />
+                  )}
+                  {mensajeType === "error" && <XCircle className="h-5 w-5" />}
+                  {mensajeType === "info" && (
+                    <AlertCircle className="h-5 w-5" />
+                  )}
+                  <span>{mensaje}</span>
+                </div>
               )}
 
               <FieldDescription className="text-center">
