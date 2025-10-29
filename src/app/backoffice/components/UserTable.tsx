@@ -12,6 +12,8 @@ import ActionMenu, {
 import DynamicTable, { Column } from "@/components/dynamic-items/DynamicTable";
 import UserModal from "./UserModal";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ROLE_NAMES, ROLE_VARIANTS } from "@/utils/constans/roles";
 
 interface UserTableProps {
   users: User[];
@@ -127,22 +129,10 @@ export default function UserTable({ users }: UserTableProps) {
       key: "role",
       header: "Rol",
       render: (user) => {
-        const roleColors = {
-          ADMIN: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-          DELIVERY: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-          USER: "bg-green-500/20 text-green-300 border-green-500/30",
-        };
-
         return (
-          <span
-            className={`
-              px-3 py-1 rounded-full text-xs font-semibold
-              border inline-block
-              ${roleColors[user.role]}
-            `}
-          >
-            {user.role}
-          </span>
+          <Badge variant={ROLE_VARIANTS[user.role]}>
+            {ROLE_NAMES[user.role]}
+          </Badge>
         );
       },
       mobileClassName: "order-3", // Se muestra tercero en mobile
@@ -151,7 +141,7 @@ export default function UserTable({ users }: UserTableProps) {
       key: "actions",
       header: "Acciones",
       render: (user) => (
-        <ActionMenu>
+        <ActionMenu className="flex justify-center">
           <ActionMenuItem
             icon={<Eye size={16} />}
             label="Ver detalle"
@@ -181,8 +171,8 @@ export default function UserTable({ users }: UserTableProps) {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Gestión de Usuarios</h2>
+      <div className="flex max-sm:flex-col justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold max-sm:mb-2">Gestión de Usuarios</h2>
         <Button onClick={handleOpenCreateModal} className="gap-2">
           <UserPlus size={18} />
           Crear Empleado
